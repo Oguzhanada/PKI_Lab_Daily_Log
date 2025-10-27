@@ -1,0 +1,53 @@
+# 2025-10-27 — Daily Log
+
+## What I Did Today
+- Installed **DC01 (Windows Server 2022)** and configured Active Directory Domain Services.
+- Installed **CA01 (Windows Server 2019)** and joined it to the domain `lab.local`.
+- Set up **CLIENT01 (Windows 11 Pro)** as a domain-joined client.
+- Configured **Group Policy (PKI Auto-Enrollment)** for certificate distribution.
+
+## Issues Encountered
+- CA01 failed to join the domain:
+  ```
+  The specified domain either does not exist or could not be contacted.
+  ```
+
+## Root Cause
+- The CA server’s DNS configuration was not pointing to the DC.
+- Firewall blocked ICMP (ping) traffic, so DC → CA communication failed.
+
+## Fix / Resolution
+1. Updated DNS on CA01:
+   ```powershell
+   Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 192.168.100.10
+   ipconfig /flushdns
+   ```
+2. Enabled ICMP on CA01:
+   ```powershell
+   New-NetFirewallRule -DisplayName "Allow ICMPv4-In" -Protocol ICMPv4 -Direction Inbound -Action Allow
+   ```
+3. Re-ran the domain join:
+   ```powershell
+   Add-Computer -DomainName lab.local -Credential (Get-Credential "lab\Administrator") -Restart
+   ```
+4. Verified successful join using:
+   ```powershell
+   systeminfo | findstr Domain
+   ```
+
+## Verification
+- **CLIENT01** successfully joined the domain.
+- Auto-enrollment GPO applied and issued a **Computer Certificate**.
+- CA console (`certsrv.msc`) shows **CLIENT01.lab.local** under *Issued Certificates*.
+
+## Next Steps
+- Deploy IIS on a test machine.
+- Issue a **Web Server Certificate** via Enterprise CA.
+- Test HTTPS connection and certificate validity using:
+  ```powershell
+  .\scripts\Test-TlsEndpoint.ps1 -Host "ca01.lab.local"
+  ```
+
+## Screenshots
+- `images/2025-10-27/ca-join-error.png`
+- `images/2025-10-27/auto-enrollment-policy.png`
