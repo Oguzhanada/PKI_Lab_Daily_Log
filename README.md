@@ -46,6 +46,15 @@ Each log file (`logs/YYYY-MM-DD.md`) includes:
 
 ---
 
+## Screenshots
+
+Here is the screenshot of the domain join error I encountered:
+
+![CA Join Error Screenshot](images/2025-10-27/example.png)
+
+And this one shows the Group Policy configuration for auto-enrollment:
+
+![Auto Enrollment Policy](images/2025-10-27/GroupPolicyExample.png)
 
 ## 📅 Example Daily Log
 See [logs/2025-10-27.md](logs/2025-10-27.md) for an example entry.  
