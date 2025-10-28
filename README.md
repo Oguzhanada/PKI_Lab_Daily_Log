@@ -57,10 +57,6 @@ And this one shows the Group Policy configuration for auto-enrollment:
  `images/2025-10-27/GroupPolicyExample.png`
 
 
-## 📅 Example Daily Log
-See [logs/2025-10-27.md](logs/2025-10-27.md) for an example entry.  
-
----
 
 ## 📜 License
 MIT License — feel free to reuse this structure for your own learning labs.
