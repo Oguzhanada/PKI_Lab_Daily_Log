@@ -42,7 +42,6 @@ Each log file (`logs/YYYY-MM-DD.md`) includes:
 - Root cause analysis  
 - Fix / Resolution  
 - Verification steps  
-- Next planned actions  
 
 ---
 
