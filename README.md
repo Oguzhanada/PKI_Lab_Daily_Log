@@ -44,14 +44,3 @@ Each log file (`logs/YYYY-MM-DD.md`) includes:
 - Verification steps  
 
 ---
-
-## Screenshots
-
-Here is the screenshot of the domain join error I encountered:
-
-`images/2025-10-27/example.png`
-
-And this one shows the Group Policy configuration for auto-enrollment:
-
- `images/2025-10-27/GroupPolicyExample.png`
-
